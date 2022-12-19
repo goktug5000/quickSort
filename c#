@@ -1,0 +1,74 @@
+using System;
+
+namespace QuickSort
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Sample array to sort
+            int[] arr = { 3, 7, 8, 5, 2, 1, 9, 5, 4 };
+
+            // Call the QuickSort function to sort the array
+            QuickSort(arr, 0, arr.Length - 1);
+
+            // Print the sorted array
+            Console.WriteLine(string.Join(", ", arr));
+        }
+
+        // QuickSort function
+        static void QuickSort(int[] arr, int left, int right)
+        {
+            // If the left index is smaller than the right index,
+            // there is at least one element to sort
+            if (left < right)
+            {
+                // Partition the array and get the pivot index
+                int pivotIndex = Partition(arr, left, right);
+
+                // Recursively sort the elements to the left of the pivot
+                QuickSort(arr, left, pivotIndex - 1);
+
+                // Recursively sort the elements to the right of the pivot
+                QuickSort(arr, pivotIndex + 1, right);
+            }
+        }
+
+        // Partition function
+        static int Partition(int[] arr, int left, int right)
+        {
+            // Choose the rightmost element as the pivot
+            int pivot = arr[right];
+
+            // Initialize the wall index to the left of the pivot
+            int wallIndex = left - 1;
+
+            // Iterate through the elements to the left of the pivot
+            for (int i = left; i < right; i++)
+            {
+                // If the current element is smaller than the pivot,
+                // move it to the left of the wall
+                if (arr[i] < pivot)
+                {
+                    wallIndex++;
+                    Swap(arr, wallIndex, i);
+                }
+            }
+
+            // Move the pivot to the right of the wall
+            wallIndex++;
+            Swap(arr, wallIndex, right);
+
+            // Return the pivot index
+            return wallIndex;
+        }
+
+        // Swap function
+        static void Swap(int[] arr, int i, int j)
+        {
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+}
