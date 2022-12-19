@@ -1,0 +1,2 @@
+# quickSort
+bişi deniyorum
